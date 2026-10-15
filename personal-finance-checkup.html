@@ -215,6 +215,119 @@ details.ch[open] .ch-mk::after{transform:rotate(90deg);opacity:0;}
   .footer{padding:20px 20px 36px;}
 }
 </style>
+<style id="finance-sheet-style">
+/* 個人財務健檢：互動試算表的獨立樣式；保留原始模板樣式完整不動 */
+.fs-app { --fs-border:rgba(0,0,0,.115); --fs-amber:#d4902a; background:#fff; border:1px solid var(--gold-dim); border-radius:20px; overflow:hidden; box-shadow:0 14px 45px rgba(120,90,30,.09); margin:20px 0 15px; font-family:var(--sans); }
+.fs-app * { box-sizing:border-box; }
+.fs-app-intro { padding:23px 23px 19px; background:linear-gradient(135deg,#fffaf0,#f5ebd8); border-bottom:1px solid var(--fs-border); }
+.fs-app-eyebrow { font-family:var(--mono); font-size:10px; letter-spacing:.12em; color:#a16a1b; font-weight:600; margin-bottom:9px; }
+.fs-app-intro h3 { color:#29251e; font-family:var(--serif); font-size:20px; font-weight:900; line-height:1.5; margin:0 0 8px; }
+.fs-app-intro p { color:#6d6355; font-size:12.5px; line-height:1.75; margin:0; }
+.fs-live { display:inline-flex; gap:6px; align-items:center; padding:4px 9px; border:1px solid #e6d1aa; border-radius:40px; vertical-align:3px; background:#fff; font-family:var(--sans); font-size:10px; color:#8a621e; white-space:nowrap; }
+.fs-dot { width:6px; height:6px; background:#4e946a; border-radius:100%; }
+.fs-group { padding:23px 23px 20px; border-bottom:1px solid var(--fs-border); }
+.fs-group-title { display:flex; align-items:flex-start; gap:12px; margin-bottom:16px; }
+.fs-step { flex:0 0 auto; display:grid; place-items:center; background:#f4ebdb; color:#a26b1b; border-radius:10px; font:700 12px var(--mono); min-width:35px; height:35px; }
+.fs-group-title h4 { font:900 18px/1.45 var(--serif); margin:0 0 3px; color:#302a22; }
+.fs-group-title p { margin:0; color:#716c64; font-size:12px; line-height:1.7; }
+.fs-two-cols { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }
+.fs-field { display:flex; flex-direction:column; gap:6px; min-width:0; cursor:default; }
+.fs-field-label { font-size:13px; font-weight:700; color:#3e3931; line-height:1.4; }
+.fs-input-wrap { display:flex; align-items:center; border:1.5px solid #d8d4cd; background:#fff; border-radius:11px; min-width:0; height:48px; transition:border-color .15s,box-shadow .15s; }
+.fs-input-wrap:focus-within { border-color:#d4902a; box-shadow:0 0 0 3px rgba(212,144,42,.13); }
+.fs-input-wrap input { display:block; min-width:0; width:100%; height:100%; padding:0 10px 0 13px; background:none; outline:none; border:0; border-radius:11px; font:700 17px/1.2 'Inter',var(--sans); color:#302a22; font-variant-numeric:tabular-nums; }
+.fs-input-wrap input::placeholder { color:#b2aaa0; font-weight:400; }
+.fs-input-wrap input::-webkit-inner-spin-button,.fs-input-wrap input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.fs-input-wrap input[type=number] { -moz-appearance:textfield; appearance:textfield; }
+.fs-unit { flex:0 0 auto; padding-right:12px; font-size:12px; color:#80786b; }
+.fs-field-hint { font-size:11.5px; line-height:1.6; color:#77716a; }
+.fs-subtotal { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; border-radius:11px; background:#f7f2e8; margin-top:14px; color:#5e513b; font-size:13px; font-weight:700; }
+.fs-subtotal strong { font:800 19px/1.3 'Inter',var(--sans); color:#8d5b12; text-align:right; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.fs-subtotal-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.fs-debt-list { display:grid; grid-template-columns:1fr; gap:12px; }
+.fs-debt-card { border:1px solid var(--fs-border); border-radius:13px; padding:14px; background:#fcfbf8; }
+.fs-debt-title { display:flex; align-items:center; gap:9px; margin-bottom:12px; color:#302a22; }
+.fs-debt-num { border:1px solid #e8d8bc; padding:4px 7px; border-radius:7px; background:#f6eedc; color:#ac772f; font:700 10px var(--mono); }
+.fs-debt-title b { font-size:14px; line-height:1.3; display:block; }
+.fs-debt-title small { display:block; color:#817a71; font-size:10.5px; line-height:1.5; margin-top:2px; }
+.fs-debt-fields { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+.fs-debt-fields .fs-field-label { font-size:11px; }
+.fs-debt-fields .fs-input-wrap { height:43px; }
+.fs-debt-fields .fs-input-wrap input { font-size:14px; padding-left:9px; padding-right:2px; }
+.fs-debt-fields .fs-unit { padding-right:8px; font-size:10.5px; }
+.fs-debt-fields .fs-field { gap:5px; }
+.fs-notes { margin-top:15px; }
+.fs-field textarea { resize:vertical; min-height:86px; width:100%; padding:12px; border-radius:11px; border:1.5px solid #d8d4cd; outline:none; font:13.5px/1.6 var(--sans); background:#fff; color:#302a22; }
+.fs-field textarea:focus { border-color:#d4902a; box-shadow:0 0 0 3px rgba(212,144,42,.13); }
+.fs-results { background:#181917; color:#eae7e0; padding:24px 22px; }
+.fs-results-head > span { display:block; color:#e0ab54; font:700 10px var(--mono); letter-spacing:.1em; }
+.fs-results-head h3 { margin:8px 0 6px; color:#fff9ed; font:900 20px/1.5 var(--serif); }
+.fs-results-head p { margin:0 0 17px; font-size:12px; color:#bbb9b2; }
+.fs-result-primary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; margin-bottom:12px; }
+.fs-kpi { display:flex; flex-direction:column; align-items:flex-start; padding:15px 12px; border:1px solid #494437; border-radius:13px; background:#292b29; min-width:0; }
+.fs-kpi-emphasis { background:linear-gradient(135deg,#4d3b19,#352d20); border-color:#846228; }
+.fs-kpi>span { color:#e3c78e; font-size:12px; font-weight:700; }
+.fs-kpi strong { display:block; font:800 clamp(17px,3.8vw,24px)/1.35 'Inter',var(--sans); color:#fff; margin:7px 0; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.fs-kpi strong.fs-negative { color:#ffb19d; }
+.fs-kpi small { color:#b9b6ae; font-size:10px; line-height:1.5; }
+.fs-result-minor { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:#353734; overflow:hidden; border:1px solid #353734; border-radius:11px; }
+.fs-result-minor>div { display:flex; flex-direction:column; justify-content:space-between; background:#232623; padding:11px; gap:5px; min-width:0; }
+.fs-result-minor span { font-size:11px; color:#c4c7c2; }
+.fs-result-minor strong { font:700 15px/1.35 'Inter',var(--sans); color:#fbf5e8; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.fs-visual { padding:20px 0 0; }
+.fs-visual-head { display:flex; justify-content:space-between; gap:6px; align-items:center; font-size:12px; font-weight:700; color:#e7d6b7; }
+.fs-visual-head span:last-child { font-size:11px; font-weight:400; color:#c1b7a2; }
+.fs-bar { overflow:hidden; display:flex; height:13px; border-radius:20px; background:#41413d; margin:10px 0 9px; }
+.fs-bar > span { display:block; height:100%; width:0; transition:width .2s; }
+.fs-bar-expense { background:#d78f4a; }
+.fs-bar-payment { background:#b76b5a; }
+.fs-bar-leftover { background:#75a989; }
+.fs-legend { display:flex; flex-wrap:wrap; gap:11px; font-size:10.5px; color:#c3c3c1; }
+.fs-legend>span { display:inline-flex; gap:5px; align-items:center; }
+.fs-legend i { width:8px; height:8px; border-radius:2px; }
+.fs-key-spend { background:#d78f4a; }.fs-key-debt { background:#b76b5a; }.fs-key-left { background:#75a989; }
+.fs-insight { margin-top:18px; border-radius:12px; background:#292f29; border:1px solid #485345; padding:13px 15px; font-size:12.5px; line-height:1.8; color:#e3e6d9; }
+.fs-insight strong { color:#f4d18b; }
+.fs-actions { display:flex; flex-wrap:wrap; gap:8px; padding:17px 21px 6px; }
+.fs-actions button { border:0; min-height:43px; padding:10px 14px; border-radius:40px; font:700 13px var(--sans); cursor:pointer; }
+.fs-action-main { background:#d4902a; color:#241b0a; flex:1 1 145px; }
+.fs-action-outline { background:#fff; color:#865711; border:1px solid #d8b47e!important; flex:1 1 152px; }
+.fs-action-clear { background:#eeeae3; color:#675e51; flex:0 1 auto; }
+.fs-actions button:focus-visible { outline:3px solid rgba(212,144,42,.35); outline-offset:2px; }
+.fs-privacy { padding:10px 22px 6px; margin:0; color:#6e6b64; font-size:11.5px; line-height:1.8; }
+.fs-feedback { min-height:18px; padding:0 22px 16px; font-size:12px; color:#795315; }
+@media(max-width:600px) {
+  .fs-app-intro { padding:19px 15px 16px; }
+  .fs-app-intro h3 { font-size:17px; }
+  .fs-live { vertical-align:2px; font-size:9px; }
+  .fs-group { padding:20px 15px 18px; }
+  .fs-group-title h4 { font-size:16px; }
+  .fs-group-title { gap:9px; }
+  .fs-step { min-width:30px; height:30px; font-size:11px; }
+  .fs-two-cols { gap:10px; }
+  .fs-field-label { font-size:12px; }
+  .fs-input-wrap { height:45px; }
+  .fs-input-wrap input { font-size:16px; padding-left:9px; padding-right:0; }
+  .fs-unit { padding-right:8px; }
+  .fs-debt-card { padding:12px; }
+  .fs-debt-fields { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .fs-debt-fields .fs-field.fs-principal { grid-column:1/-1; }
+  .fs-subtotal-grid { grid-template-columns:1fr; gap:0; }
+  .fs-subtotal-grid .fs-subtotal + .fs-subtotal { margin-top:8px; }
+  .fs-results { padding:22px 15px; }
+  .fs-results-head h3 { font-size:18px; }
+  .fs-result-primary { grid-template-columns:1fr; }
+  .fs-kpi { padding:14px 15px; }
+  .fs-kpi strong { font-size:clamp(19px,5vw,24px); letter-spacing:-.4px; white-space:normal; overflow-wrap:anywhere; }
+  .fs-kpi>span { font-size:11px; }
+  .fs-result-minor strong { font-size:13px; }
+  .fs-actions { padding:15px 14px 5px; }
+  .fs-actions button { font-size:12px; }
+  .fs-privacy { padding:10px 15px 6px; }
+  .fs-feedback { padding:0 15px 15px; }
+}
+@media(max-width:350px) { .fs-two-cols { grid-template-columns:1fr; } .fs-result-primary { grid-template-columns:1fr; } .fs-live { display:flex; width:max-content; margin-top:5px; } }
+</style>
 </head>
 <body>
 <script>document.documentElement.className+=' js';</script>
@@ -256,7 +369,7 @@ details.ch[open] .ch-mk::after{transform:rotate(90deg);opacity:0;}
       <div class="tt">這頁有</div>
       <ul>
         <li><a href="#s-hooks">財務健檢速查表<i>↓</i></a></li>
-        <li><a href="#s-prompt">可複製的健檢表<i>↓</i></a></li>
+        <li><a href="#s-prompt">可填寫的互動試算表<i>↓</i></a></li>
         <li><a href="#s-check">財務改善行動清單<i>↓</i></a></li>
       </ul>
     </nav>
@@ -302,67 +415,208 @@ details.ch[open] .ch-mk::after{transform:rotate(90deg);opacity:0;}
   </section>
 
   <section class="sec fade" id="s-prompt">
-    <span class="sec-tag">直接拿去用 · 一鍵複製</span>
-    <h2>不用複雜工具<br><span class="g">先把自己的財務寫清楚</span></h2>
-    <p>下面這份表格可以直接複製到手機備忘錄。把空白處填上自己的實際數字，就能初步看出收入、支出、負債與資產的情況。</p>
-    <div class="cp">
-      <div class="pl">COPY · 個人財務健檢表</div>
-      <button class="copy-btn" type="button">複製</button>
-      <pre id="finance-checkup-form">【我的個人財務健檢表】
+    <span class="sec-tag">互動財務工具 · 直接填寫</span>
+    <h2>不用複製到備忘錄<br><span class="g">直接輸入，結果自動算</span></h2>
+    <p>把自己的金額填進白色欄位，下面會自動計算每月結餘、負債總額、淨資產與預備金可支應的月數。手機上也可以直接操作。</p>
+    <div class="fs-app" id="finance-sheet">
+      <div class="fs-app-intro">
+        <div class="fs-app-eyebrow">PERSONAL FINANCE · LIVE CALCULATOR</div>
+        <h3>我的個人財務健檢表 <span class="fs-live"><span class="fs-dot"></span> 即時試算</span></h3>
+        <p>金額單位：新臺幣（NT$）｜沒有的項目請填 0；<b>空白欄位在試算時會暫時視為 0</b>，填完整結果才準確。</p>
+      </div>
 
-一、每月收入
-薪資收入：【填入】元
-其他實際收入：【填入】元
-每月總收入：【填入】元
+      <div class="fs-group">
+        <div class="fs-group-title"><span class="fs-step">01</span><div><h4>每月收入</h4><p>以實際每月能拿到的收入為主，波動收入建議填保守平均值。</p></div></div>
+        <div class="fs-two-cols">
+          <label class="fs-field" for="fs-salary">
+      <span class="fs-field-label">薪資收入</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-salary" data-fs="salary" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-income_other">
+      <span class="fs-field-label">其他實際收入</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-income_other" data-fs="income_other" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+        </div>
+        <div class="fs-subtotal"><span>每月總收入</span><strong data-fs-output="income">—</strong></div>
+      </div>
 
-二、每月生活支出
-必要生活支出：【填入】元
-其他生活支出：【填入】元
-生活支出合計：【填入】元
+      <div class="fs-group">
+        <div class="fs-group-title"><span class="fs-step">02</span><div><h4>每月生活支出</h4><p>這裡先不包含房貸、信貸與信用卡還款，避免重複扣除。</p></div></div>
+        <div class="fs-two-cols">
+          <label class="fs-field" for="fs-essential">
+      <span class="fs-field-label">必要生活支出</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-essential" data-fs="essential" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      <span class="fs-field-hint">伙食、水電、交通、房租等（不含借款還款）</span>
+    </label>
+          <label class="fs-field" for="fs-discretionary">
+      <span class="fs-field-label">其他生活支出</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-discretionary" data-fs="discretionary" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      <span class="fs-field-hint">娛樂、購物、訂閱及其他開銷</span>
+    </label>
+        </div>
+        <div class="fs-subtotal"><span>每月生活支出合計</span><strong data-fs-output="expenses">—</strong></div>
+      </div>
 
-三、負債狀況
-房貸剩餘本金：【填入】元
-信貸剩餘本金：【填入】元
-卡債剩餘金額：【填入】元
-其他負債：【填入】元
+      <div class="fs-group">
+        <div class="fs-group-title"><span class="fs-step">03</span><div><h4>負債狀況</h4><p>每筆都可填「剩餘本金、年利率、每月實際還款」。年利率只供盤點，<b>不會再從月結餘重複扣利息</b>。</p></div></div>
+        <div class="fs-debt-list"><div class="fs-debt-card">
+       <div class="fs-debt-title"><span class="fs-debt-num">01</span><span><b>房貸</b><small>已繳本息每月合計</small></span></div>
+       <div class="fs-debt-fields">
+          <label class="fs-field fs-principal" for="fs-mortgage_principal">
+      <span class="fs-field-label">剩餘本金</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-mortgage_principal" data-fs="mortgage_principal" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-mortgage_rate">
+      <span class="fs-field-label">年利率</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-mortgage_rate" data-fs="mortgage_rate" inputmode="decimal" min="0" step="any" placeholder="如 2.5" autocomplete="off"><span class="fs-unit">%</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-mortgage_payment">
+      <span class="fs-field-label">每月還款</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-mortgage_payment" data-fs="mortgage_payment" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+       </div>
+     </div><div class="fs-debt-card">
+       <div class="fs-debt-title"><span class="fs-debt-num">02</span><span><b>信貸</b><small>含所有個人信貸</small></span></div>
+       <div class="fs-debt-fields">
+          <label class="fs-field fs-principal" for="fs-personal_principal">
+      <span class="fs-field-label">剩餘本金</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-personal_principal" data-fs="personal_principal" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-personal_rate">
+      <span class="fs-field-label">年利率</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-personal_rate" data-fs="personal_rate" inputmode="decimal" min="0" step="any" placeholder="如 2.5" autocomplete="off"><span class="fs-unit">%</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-personal_payment">
+      <span class="fs-field-label">每月還款</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-personal_payment" data-fs="personal_payment" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+       </div>
+     </div><div class="fs-debt-card">
+       <div class="fs-debt-title"><span class="fs-debt-num">03</span><span><b>信用卡債</b><small>只填尚未清償的卡債與每月應還</small></span></div>
+       <div class="fs-debt-fields">
+          <label class="fs-field fs-principal" for="fs-card_principal">
+      <span class="fs-field-label">剩餘本金</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-card_principal" data-fs="card_principal" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-card_rate">
+      <span class="fs-field-label">年利率</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-card_rate" data-fs="card_rate" inputmode="decimal" min="0" step="any" placeholder="如 2.5" autocomplete="off"><span class="fs-unit">%</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-card_payment">
+      <span class="fs-field-label">每月還款</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-card_payment" data-fs="card_payment" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+       </div>
+     </div><div class="fs-debt-card">
+       <div class="fs-debt-title"><span class="fs-debt-num">04</span><span><b>其他借款</b><small>含分期、親友借款等</small></span></div>
+       <div class="fs-debt-fields">
+          <label class="fs-field fs-principal" for="fs-otherloan_principal">
+      <span class="fs-field-label">剩餘本金</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-otherloan_principal" data-fs="otherloan_principal" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-otherloan_rate">
+      <span class="fs-field-label">年利率</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-otherloan_rate" data-fs="otherloan_rate" inputmode="decimal" min="0" step="any" placeholder="如 2.5" autocomplete="off"><span class="fs-unit">%</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-otherloan_payment">
+      <span class="fs-field-label">每月還款</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-otherloan_payment" data-fs="otherloan_payment" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+       </div>
+     </div></div>
+        <div class="fs-subtotal-grid">
+          <div class="fs-subtotal"><span>負債剩餘本金</span><strong data-fs-output="debt">—</strong></div>
+          <div class="fs-subtotal"><span>每月負債還款合計</span><strong data-fs-output="payment">—</strong></div>
+        </div>
+      </div>
 
-每月負債還款總額：【填入】元
-各筆負債年利率：【填入】
+      <div class="fs-group">
+        <div class="fs-group-title"><span class="fs-step">04</span><div><h4>目前資產</h4><p>使用目前合理的資產價值；房屋市價與房貸本金分開填入，不要只填扣除房貸後的房屋淨值。</p></div></div>
+        <div class="fs-two-cols">
+          <label class="fs-field" for="fs-cash">
+      <span class="fs-field-label">現金與銀行存款</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-cash" data-fs="cash" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-investment">
+      <span class="fs-field-label">股票、基金等投資資產</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-investment" data-fs="investment" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-property">
+      <span class="fs-field-label">房屋目前合理估值</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-property" data-fs="property" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+          <label class="fs-field" for="fs-asset_other">
+      <span class="fs-field-label">其他可估價資產</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-asset_other" data-fs="asset_other" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      
+    </label>
+        </div>
+        <div class="fs-subtotal"><span>資產總額</span><strong data-fs-output="assets">—</strong></div>
+      </div>
 
-四、現金流
-每月總收入：【填入】元
-每月生活支出：【填入】元
-每月負債還款：【填入】元
+      <div class="fs-group">
+        <div class="fs-group-title"><span class="fs-step">05</span><div><h4>緊急預備金與你的下一步</h4><p>緊急預備金是上方存款的一部分，<b>不要再加進資產總額</b>。</p></div></div>
+        <label class="fs-field" for="fs-reserve">
+      <span class="fs-field-label">可立即動用的緊急預備金</span>
+      <span class="fs-input-wrap"><input type="number" id="fs-reserve" data-fs="reserve" inputmode="decimal" min="0" step="any" placeholder="0" autocomplete="off"><span class="fs-unit">元</span></span>
+      <span class="fs-field-hint">不含短期不方便變現或有較大價格波動的資產</span>
+    </label>
+        <div class="fs-two-cols fs-notes">
+          <label class="fs-field" for="fs-issue"><span class="fs-field-label">目前最需要改善的問題</span><textarea id="fs-issue" data-fs-note="issue" rows="3" placeholder="例如：卡債利率高、每月幾乎沒有結餘"></textarea></label>
+          <label class="fs-field" for="fs-action"><span class="fs-field-label">這個月先做的一件事</span><textarea id="fs-action" data-fs-note="action" rows="3" placeholder="例如：列出所有卡債利率，調整還款順序"></textarea></label>
+        </div>
+      </div>
 
-每月結餘：【填入】元
-
-五、資產狀況
-現金與銀行存款：【填入】元
-其他投資資產：【填入】元
-房屋及其他資產：【填入】元
-
-資產總額：【填入】元
-負債總額：【填入】元
-淨資產：【填入】元
-
-六、緊急預備金
-每月必要生活支出與必要還款：
-【填入】元
-
-目前可動用的緊急預備金：
-【填入】元
-
-目前可以支應：【填入】個月
-
-七、我的財務問題
-目前最需要改善的是：
-【填入】
-
-這個月準備先做的事情：
-【填入】</pre>
+      <div class="fs-results" id="fs-results">
+        <div class="fs-results-head"><span>YOUR RESULTS · 即時試算結果</span><h3>現在的財務狀況，一眼看清楚</h3><p>以下數字會隨你的輸入即時更新。</p></div>
+        <div class="fs-result-primary">
+          <div class="fs-kpi fs-kpi-emphasis" id="fs-net-card"><span>每月結餘</span><strong data-fs-output="balance">—</strong><small>收入 − 生活支出 − 每月還款</small></div>
+          <div class="fs-kpi"><span>淨資產</span><strong data-fs-output="net">—</strong><small>資產總額 − 負債剩餘本金</small></div>
+        </div>
+        <div class="fs-result-minor">
+          <div><span>每月總收入</span><strong data-fs-output="income">—</strong></div>
+          <div><span>每月生活支出</span><strong data-fs-output="expenses">—</strong></div>
+          <div><span>每月負債還款</span><strong data-fs-output="payment">—</strong></div>
+          <div><span>負債本金總額</span><strong data-fs-output="debt">—</strong></div>
+          <div><span>資產總額</span><strong data-fs-output="assets">—</strong></div>
+          <div><span>必要支出＋必要還款</span><strong data-fs-output="essential_total">—</strong></div>
+          <div><span>必要支出占收入比例</span><strong data-fs-output="essential_ratio">—</strong></div>
+          <div><span>預備金可支應月數</span><strong data-fs-output="months">—</strong></div>
+        </div>
+        <div class="fs-visual" aria-label="每月現金流分布">
+          <div class="fs-visual-head"><span>每月現金流分布</span><span data-fs-output="allocation">填入收入與支出後顯示</span></div>
+          <div class="fs-bar"><span class="fs-bar-expense" id="fs-bar-expense"></span><span class="fs-bar-payment" id="fs-bar-payment"></span><span class="fs-bar-leftover" id="fs-bar-leftover"></span></div>
+          <div class="fs-legend"><span><i class="fs-key-spend"></i>生活支出</span><span><i class="fs-key-debt"></i>負債還款</span><span><i class="fs-key-left"></i>結餘</span></div>
+        </div>
+        <div class="fs-insight" id="fs-insight" role="status" aria-live="polite">先填入金額，這裡就會顯示對應的財務提醒。</div>
+      </div>
+      <div class="fs-actions">
+        <button class="fs-action-main" id="fs-copy" type="button">複製試算結果</button>
+        <button class="fs-action-outline" id="fs-csv" type="button">下載試算結果（CSV）</button>
+        <button class="fs-action-clear" id="fs-clear" type="button">清空重填</button>
+      </div>
+      <p class="fs-privacy"><b>隱私提醒：</b>這份網頁工具不會把你輸入的財務資料傳送給我們，也不會自動儲存在網站上。關閉或重新整理頁面可能遺失資料，請先「複製試算結果」或「下載試算表」留存。若使用共用設備，請結束後清空。</p>
+      <div class="fs-feedback" id="fs-feedback" role="status" aria-live="polite"></div>
     </div>
-    <div class="pos"><b>提醒：</b>緊急預備金是現金與存款中的一部分，不需要在計算資產總額時重複加上。</div>
-    <div class="tipline"><b>預備金可支應月數：</b>可動用預備金÷每月必要生活支出與必要還款。填完後，你不一定要立刻投資，但至少能開始了解自己的財務問題。</div>
+    <div class="pos"><b>提醒：</b>試算僅供個人財務盤點，填寫欄位越完整，結果越有參考價值。緊急預備金不應在資產總額重複加計。</div>
+    <div class="tipline"><b>預備金可支應月數：</b>可動用預備金 ÷（每月必要生活支出＋必要還款）。如分母為 0，月數不會被錯誤顯示為無限大。</div>
   </section>
 
   <section class="sec fade" id="s-diagnosis">
@@ -490,5 +744,153 @@ reveal();
 setTimeout(function(){ document.querySelectorAll('.fade').forEach(function(el){ el.classList.add('vis'); }); }, 2500);
 </script>
 
+<script id="finance-sheet-script">
+/* 互動健檢試算表：新功能獨立腳本；不改動原模板 JavaScript */
+(function(){
+  'use strict';
+  var sheet = document.getElementById('finance-sheet');
+  if (!sheet) return;
+  var inputs = Array.from(sheet.querySelectorAll('input[data-fs]'));
+  var notes = Array.from(sheet.querySelectorAll('textarea[data-fs-note]'));
+  var loanKeys = ['mortgage','personal','card','otherloan'];
+  var loanNames = {'mortgage':'房貸','personal':'信貸','card':'信用卡債','otherloan':'其他借款'};
+  var moneyFmt = new Intl.NumberFormat('zh-TW', {minimumFractionDigits:0,maximumFractionDigits:2});
+  var pctFmt = new Intl.NumberFormat('zh-TW', {minimumFractionDigits:0,maximumFractionDigits:1});
+  var active=false;
+  var last={};
+  function get(id) {
+    var el = document.getElementById('fs-'+id);
+    if (!el || el.value === '') return 0;
+    var n=Number(el.value);
+    return Number.isFinite(n) && n>0?n:0;
+  }
+  function m(n) { return (n < 0 ? '−' : '') + 'NT$' + moneyFmt.format(Math.abs(n)); }
+  function safe(n) { return Number.isFinite(n)?n:0; }
+  function output(key,text) { sheet.querySelectorAll('[data-fs-output="'+key+'"]').forEach(function(el){el.textContent=text;}); }
+  function textValue(id) { var e=document.getElementById('fs-'+id);return e?e.value.trim():''; }
+  function calculate() {
+    active=inputs.some(function(el){ return el.value.trim()!==''; });
+    var income = get('salary') + get('income_other');
+    var expenses = get('essential') + get('discretionary');
+    var payment=0, debt=0;
+    loanKeys.forEach(function(k){debt+=get(k+'_principal');payment+=get(k+'_payment');});
+    var assets=get('cash')+get('investment')+get('property')+get('asset_other');
+    var balance=income-expenses-payment;
+    var net=assets-debt;
+    var essentialTotal=get('essential')+payment;
+    var months=essentialTotal>0?get('reserve')/essentialTotal:null;
+    var essentialRatio=income>0?100*essentialTotal/income:null;
+    var result={income:income,expenses:expenses,payment:payment,debt:debt,assets:assets,balance:balance,net:net,essential_total:essentialTotal,months:months,essential_ratio:essentialRatio};
+    last=result;
+    ['income','expenses','payment','debt','assets','balance','net','essential_total'].forEach(function(k){output(k,active?m(result[k]):'—');});
+    output('months',active?(months===null?'—':pctFmt.format(months)+' 個月'):'—');
+    output('essential_ratio',active?(essentialRatio===null?'—':pctFmt.format(essentialRatio)+'%'):'—');
+    var bEl=sheet.querySelector('[data-fs-output="balance"]');
+    var nEl=sheet.querySelector('[data-fs-output="net"]');
+    bEl.classList.toggle('fs-negative',active&&balance<0);
+    nEl.classList.toggle('fs-negative',active&&net<0);
+    var spend=Math.max(0,expenses), pay=Math.max(0,payment), remainder=Math.max(0,balance);
+    var base=active?Math.max(income,spend+pay,1):1;
+    document.getElementById('fs-bar-expense').style.width=(spend/base*100)+'%';
+    document.getElementById('fs-bar-payment').style.width=(pay/base*100)+'%';
+    document.getElementById('fs-bar-leftover').style.width=(remainder/base*100)+'%';
+    output('allocation',active?(income>0?((spend+pay>income)?'支出與還款超過收入':'收入的分配概況'):'尚未填寫收入'):'填入收入與支出後顯示');
+    var alert=document.getElementById('fs-insight');
+    var msg=[];
+    if (!active) {
+      alert.textContent='先填入金額，這裡就會顯示對應的財務提醒。';
+    } else {
+      if (balance<0) msg.push('每月結餘為負，建議先檢視現金流與每月還款壓力，不要急著增加投資。');
+      else if (income>0 && balance===0) msg.push('目前每月收入與支出大致打平，建議優先找出可以改善的現金流空間。');
+      else if (income>0) msg.push('目前有每月結餘，可評估先保留生活預備金，再安排負債與資產配置。');
+      else msg.push('收入尚未填妥；請補上每月實際收入，才能判斷現金流。');
+      if (months!==null && months<6 && essentialTotal>0) msg.push('緊急預備金目前約可支應 '+pctFmt.format(months)+' 個月；可逐步評估六個月的準備目標。');
+      else if (months!==null && months>=6 && essentialTotal>0) msg.push('依目前填入數字，預備金已達六個月必要開銷與必要還款。');
+      if (get('reserve')>get('cash')) msg.push('預備金高於「現金與銀行存款」欄位；請確認預備金是否真的能立即動用，並避免重複計算。');
+      if (loanKeys.some(function(k){ return get(k+'_rate')>=10 && get(k+'_principal')>0; })) msg.push('有填入年利率較高的借款，建議進一步比較利率、還款條件及必要預備金。');
+      if (loanKeys.some(function(k){ return get(k+'_payment')>0 && textValue(k+'_principal')===''; })) msg.push('有借款填了每月還款，卻未填剩餘本金，淨資產可能會高估。');
+      if (inputs.filter(function(el){ return el.value.trim()!==''; }).length<inputs.length) msg.push('目前仍有空白金額欄位，試算暫將空白視為 0，請確認所有需要的項目都填妥。');
+      alert.innerHTML=msg.map(function(t){return '<div>• '+t+'</div>';}).join('');
+    }
+    return result;
+  }
+  inputs.forEach(function(el){
+    el.addEventListener('input',calculate);
+    el.addEventListener('change',function(){
+      var n=Number(el.value);
+      if(el.value!=='' && (!Number.isFinite(n)||n<0)) {el.value='0';calculate();}
+    });
+  });
+  function summary() {
+    var r=calculate();
+    var lines=['【我的個人財務健檢表】',''];
+    lines.push('一、每月收入');
+    lines.push('薪資收入：'+m(get('salary')));
+    lines.push('其他實際收入：'+m(get('income_other')));
+    lines.push('每月總收入：'+m(r.income),'');
+    lines.push('二、每月生活支出');
+    lines.push('必要生活支出：'+m(get('essential')));
+    lines.push('其他生活支出：'+m(get('discretionary')));
+    lines.push('生活支出合計：'+m(r.expenses),'');
+    lines.push('三、負債狀況');
+    loanKeys.forEach(function(k){lines.push(loanNames[k]+'：剩餘本金 '+m(get(k+'_principal'))+'；年利率 '+(textValue(k+'_rate')===''?'未填':textValue(k+'_rate')+'%')+'；每月還款 '+m(get(k+'_payment')));});
+    lines.push('負債本金總額：'+m(r.debt),'每月負債還款：'+m(r.payment),'');
+    lines.push('四、資產狀況');
+    [['cash','現金與銀行存款'],['investment','股票、基金等投資資產'],['property','房屋目前合理估值'],['asset_other','其他可估價資產']].forEach(function(item){lines.push(item[1]+'：'+m(get(item[0])));});
+    lines.push('資產總額：'+m(r.assets),'淨資產：'+m(r.net),'');
+    lines.push('五、現金流與預備金');
+    lines.push('每月結餘：'+m(r.balance));
+    lines.push('每月必要生活支出＋必要還款：'+m(r.essential_total));
+    lines.push('必要支出占收入比例：'+(r.essential_ratio===null?'尚無法計算':pctFmt.format(r.essential_ratio)+'%'));
+    lines.push('可動用的緊急預備金：'+m(get('reserve')));
+    lines.push('預備金可支應月數：'+(r.months===null?'尚無法計算':pctFmt.format(r.months)+' 個月'),'');
+    lines.push('六、改善目標');
+    lines.push('目前最需要改善的問題：'+(document.getElementById('fs-issue').value.trim()||'未填'));
+    lines.push('這個月先做的一件事：'+(document.getElementById('fs-action').value.trim()||'未填'));
+    lines.push('','※ 金額依輸入資料估算，空白欄位試算時視為 0。');
+    return lines.join('\n');
+  }
+  var feedback=document.getElementById('fs-feedback');
+  function say(msg){feedback.textContent=msg;}
+  function fallbackCopy(t){
+    var temp=document.createElement('textarea');temp.value=t;temp.style.position='fixed';temp.style.opacity='0';document.body.appendChild(temp);temp.focus();temp.select();
+    var ok=false;try{ok=document.execCommand('copy');}catch(e){}temp.remove();return ok;
+  }
+  document.getElementById('fs-copy').addEventListener('click',function(){
+    var text=summary();
+    if(navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(text).then(function(){say('試算結果已複製，可貼到備忘錄或 LINE。');}).catch(function(){say(fallbackCopy(text)?'試算結果已複製。':'複製失敗，請改用下載試算表。');});}
+    else {say(fallbackCopy(text)?'試算結果已複製。':'複製失敗，請改用下載試算表。');}
+  });
+  document.getElementById('fs-csv').addEventListener('click',function(){
+    var r=calculate(), rows=[['分類','項目','輸入值或試算結果','單位']];
+    [['每月收入','薪資收入','salary','元'],['每月收入','其他實際收入','income_other','元'],['每月生活支出','必要生活支出','essential','元'],['每月生活支出','其他生活支出','discretionary','元']].forEach(function(i){rows.push([i[0],i[1],get(i[2]),i[3]]);});
+    loanKeys.forEach(function(k){rows.push(['負債',loanNames[k]+'剩餘本金',get(k+'_principal'),'元']);rows.push(['負債',loanNames[k]+'年利率',textValue(k+'_rate'),'%']);rows.push(['負債',loanNames[k]+'每月還款',get(k+'_payment'),'元']);});
+    [['cash','現金與銀行存款'],['investment','股票、基金等投資資產'],['property','房屋目前合理估值'],['asset_other','其他可估價資產']].forEach(function(i){rows.push(['資產',i[1],get(i[0]),'元']);});
+    rows.push(['緊急預備金','可動用緊急預備金',get('reserve'),'元']);
+    [['收入','每月總收入',r.income],['支出','每月生活支出合計',r.expenses],['負債','每月負債還款總額',r.payment],['負債','剩餘本金總額',r.debt],['資產','資產總額',r.assets],['試算結果','每月結餘',r.balance],['試算結果','淨資產',r.net],['試算結果','每月必要支出加還款',r.essential_total],['試算結果','必要支出占收入比例',r.essential_ratio],['試算結果','預備金可支應月數',r.months]].forEach(function(i){rows.push([i[0],i[1],i[2]===null?'無法計算':i[2],i[1].indexOf('比例')>=0?'%':i[1].indexOf('月數')>=0?'個月':'元']);});
+    rows.push(['改善目標','目前最需要改善的問題',document.getElementById('fs-issue').value.trim(),'']);
+    rows.push(['改善目標','這個月先做的一件事',document.getElementById('fs-action').value.trim(),'']);
+    function cell(c){var t=String(c===null?'':c);if(/^[=+@\-\t\r]/.test(t.trim()) && !/^-?[0-9]+(?:\.[0-9]+)?$/.test(t.trim())) t="'"+t;return '"'+t.replace(/"/g,'""')+'"';}
+    var csv='\uFEFF'+rows.map(function(row){return row.map(cell).join(',');}).join('\r\n');
+    var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+    var url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='personal-finance-checkup-results.csv';document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url);},5000);
+    say('已匯出目前的試算結果，可用 Excel 或 Google 試算表開啟（匯出的數值不會自動重新計算）。');
+  });
+  document.getElementById('fs-clear').addEventListener('click',function(){
+    if(!window.confirm('確定清空所有已填寫的金額與文字嗎？這個操作無法復原。')) return;
+    inputs.forEach(function(el){el.value='';});notes.forEach(function(el){el.value='';});calculate();say('已清空，可以重新填寫。');
+  });
+  // 試算表在畫面中時，暫時隱藏底部懸浮導流鈕，避免遮住輸入欄位或操作按鈕。
+  if ('IntersectionObserver' in window) {
+    var floatingCta=document.getElementById('float-cta');
+    if (floatingCta) {
+      new IntersectionObserver(function(entries){
+        floatingCta.classList.toggle('hide',entries[0].isIntersecting);
+      }, {threshold:0}).observe(sheet);
+    }
+  }
+  calculate();
+})();
+</script>
 </body>
 </html>
